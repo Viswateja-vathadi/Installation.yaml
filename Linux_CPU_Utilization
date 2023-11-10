@@ -1,0 +1,79 @@
+---
+
+- hosts: all
+
+  gather_facts: true
+
+  # connection: local
+
+  become: true
+
+  # vars:
+
+  #   ansible_python_interpreter: /usr/bin/python3
+
+
+
+
+  tasks:
+
+    - name: "Get CPU usage"
+
+      shell: "ps -eo user,pid,comm,pcpu,pmem --sort -pcpu | head -5"
+
+      register: cpuout
+
+      
+
+    # - name: "Output CPU usage"
+
+    #   debug: 
+
+    #     msg: 
+
+    #       - "{{cpuout.stdout_lines[1].split()[1]}}"
+
+
+
+
+      
+
+#   - name: cpu usage of running process
+
+#     shell: "top -o %CPU"
+
+#     register: running_processes
+
+    
+
+    # - name: Get the PID of running process
+
+    #   shell: ps --sort=pcpu | tail -n 1 | awk '{print $1}'
+
+    #   register: running_processes1
+
+    
+
+    # - name: Kill running processes
+
+    #   shell: "kill -9 {{cpuout.stdout_lines[1].split()[1]}}"
+
+    #   when: cpuout.stdout_lines[1].split()[2] != "sshd"
+
+    #    with_items: "{{ running_processes1.stdout_lines }}"
+
+    
+
+    # - name: "Get CPU usage"
+
+    #   shell: "ps -eo user,pid,comm,pcpu,pmem --sort -pcpu | head -5"
+
+    #   register: cpuout1
+
+    
+
+    # - wait_for:
+
+    #     path: "/proc/{{ item }}/status"
+
+    #     state: absent
